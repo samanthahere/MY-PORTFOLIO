@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramisha Hossain Samantha — Software Engineer</title>
+<meta name="description" content="Portfolio of Ramisha Hossain Samantha, Computer Science & Engineering student at BRAC University — software, machine learning and hardware projects.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ff2f7e'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --bg:#08070c;
+    --bg-alt:#100e17;
+    --card:#161320;
+    --card-line:#26212f;
+    --pink:#ff2f7e;
+    --pink-2:#ff6fa8;
+    --pink-soft:#ffc4dd;
+    --pink-dim:rgba(255,47,126,.12);
+    --text:#f3f1f6;
+    --text-dim:#a29cb0;
+    --text-faint:#6f6a7d;
+    --mono:'JetBrains Mono', monospace;
+    --sans:'Inter', sans-serif;
+    --disp:'Unbounded', sans-serif;
+    --max:1120px;
+    --radius:14px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(255,47,126,0.14) 1px, transparent 1px);
+    background-size:34px 34px;
+  }
+
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  ul{list-style:none;}
+  section{position:relative;}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+
+  ::selection{background:var(--pink);color:#0a0a0a;}
+
+  /* ---------- scrollbar ---------- */
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--card-line);border-radius:6px;}
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    background:rgba(8,7,12,.7);
+    backdrop-filter:blur(14px) saturate(140%);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border-bottom:1px solid rgba(255,255,255,.06);
+    transition:border-color .3s ease;
+  }
+  nav{
+    max-width:var(--max);margin:0 auto;padding:16px 28px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{
+    font-family:var(--disp);font-weight:700;font-size:1.05rem;letter-spacing:.02em;
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo .dot{color:var(--pink);}
+  .nav-links{display:flex;gap:2px;align-items:center;}
+  .nav-links a{
+    position:relative;padding:9px 16px;font-size:.92rem;color:var(--text-dim);
+    font-weight:500;transition:color .2s ease;
+  }
+  .nav-links a:hover{color:var(--text);}
+  .nav-links a.active{color:var(--text);}
+  .nav-links a.active::after{
+    content:"";position:absolute;left:16px;right:16px;bottom:3px;height:2px;
+    background:var(--pink);border-radius:2px;
+  }
+  .nav-cta{
+    margin-left:8px;padding:9px 18px;border:1px solid var(--pink);border-radius:999px;
+    font-size:.86rem;font-weight:600;color:var(--pink-soft);transition:all .2s ease;
+  }
+  .nav-cta:hover{background:var(--pink);color:#0a0a0a;}
+
+  .hamburger{
+    display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;
+    z-index:1001;
+  }
+  .hamburger span{width:22px;height:2px;background:var(--text);transition:all .3s ease;border-radius:2px;}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-menu{
+    display:none;position:fixed;inset:0;top:64px;background:var(--bg);z-index:999;
+    padding:20px 28px;flex-direction:column;gap:4px;
+    transform:translateY(-12px);opacity:0;pointer-events:none;transition:all .25s ease;
+  }
+  .mobile-menu.open{transform:translateY(0);opacity:1;pointer-events:auto;}
+  .mobile-menu a{padding:16px 4px;font-size:1.1rem;border-bottom:1px solid var(--card-line);color:var(--text-dim);}
+  .mobile-menu a.active{color:var(--pink-soft);}
+
+  @media (max-width:860px){
+    .nav-links{display:none;}
+    .hamburger{display:flex;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100vh;display:flex;align-items:center;padding:130px 0 80px;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center;
+  }
+  .eyebrow-tag{
+    display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.8rem;
+    color:var(--pink-2);background:var(--pink-dim);border:1px solid rgba(255,47,126,.25);
+    padding:6px 14px;border-radius:999px;margin-bottom:22px;
+  }
+  .eyebrow-tag .blip{width:6px;height:6px;border-radius:50%;background:var(--pink);box-shadow:0 0 8px var(--pink);}
+  h1.name{
+    font-family:var(--disp);font-weight:800;font-size:clamp(2.4rem,5.6vw,4.1rem);
+    line-height:1.06;letter-spacing:-.01em;margin-bottom:18px;
+  }
+  h1.name .accent{color:var(--pink);}
+  .hero-title{
+    font-family:var(--mono);color:var(--pink-soft);font-size:1.05rem;margin-bottom:20px;
+  }
+  .hero-intro{color:var(--text-dim);font-size:1.05rem;max-width:52ch;margin-bottom:34px;}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:34px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:10px;
+    font-weight:600;font-size:.95rem;transition:all .2s ease;border:1px solid transparent;
+  }
+  .btn-primary{background:var(--pink);color:#0a0a0a;}
+  .btn-primary:hover{background:var(--pink-2);transform:translateY(-2px);}
+  .btn-ghost{border-color:var(--card-line);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--pink);color:var(--pink-soft);transform:translateY(-2px);}
+  .hero-socials{display:flex;gap:14px;}
+  .social-btn{
+    width:42px;height:42px;border-radius:50%;border:1px solid var(--card-line);
+    display:flex;align-items:center;justify-content:center;color:var(--text-dim);
+    transition:all .2s ease;
+  }
+  .social-btn:hover{border-color:var(--pink);color:var(--pink-soft);transform:translateY(-2px);}
+
+  .hero-visual{position:relative;display:flex;justify-content:center;}
+  .portrait-frame{
+    position:relative;width:100%;max-width:340px;aspect-ratio:4/5;
+    border-radius:22px;overflow:hidden;
+    border:1px solid var(--card-line);
+    box-shadow:0 0 0 8px rgba(255,47,126,.05), 0 30px 60px -20px rgba(255,47,126,.25);
+  }
+  .portrait-frame img{width:100%;height:100%;object-fit:cover;}
+  .portrait-frame::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, transparent 55%, rgba(8,7,12,.85) 100%);
+  }
+  .terminal-card{
+    position:absolute;bottom:-34px;left:-30px;width:230px;background:var(--card);
+    border:1px solid var(--card-line);border-radius:12px;overflow:hidden;
+    box-shadow:0 20px 45px -18px rgba(0,0,0,.6);
+    font-family:var(--mono);font-size:.72rem;z-index:2;
+  }
+  @media (max-width:500px){.terminal-card{left:0;bottom:-24px;width:190px;}}
+  .terminal-bar{
+    display:flex;gap:6px;padding:9px 12px;background:var(--bg-alt);border-bottom:1px solid var(--card-line);
+  }
+  .terminal-bar span{width:8px;height:8px;border-radius:50%;background:var(--card-line);}
+  .terminal-body{padding:14px;color:var(--text-dim);}
+  .terminal-body .line{margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .terminal-body .k{color:var(--pink-2);}
+  .terminal-body .s{color:var(--pink-soft);}
+
+  /* ---------- section heading ---------- */
+  .section-pad{padding:110px 0;}
+  .section-head{margin-bottom:52px;max-width:640px;}
+  .section-tag{font-family:var(--mono);color:var(--pink-2);font-size:.82rem;margin-bottom:12px;display:block;}
+  h2.section-title{
+    font-family:var(--disp);font-weight:700;font-size:clamp(1.7rem,3.4vw,2.5rem);letter-spacing:-.01em;
+  }
+  .section-sub{color:var(--text-dim);margin-top:14px;font-size:1rem;}
+
+  /* ---------- about ---------- */
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:56px;align-items:start;}
+  .about-text p{color:var(--text-dim);margin-bottom:18px;font-size:1.02rem;}
+  .about-text strong{color:var(--text);font-weight:600;}
+  .thesis-box{
+    background:var(--card);border:1px solid var(--card-line);border-left:3px solid var(--pink);
+    border-radius:10px;padding:24px 26px;
+  }
+  .thesis-box .label{font-family:var(--mono);font-size:.78rem;color:var(--pink-2);margin-bottom:10px;display:block;}
+  .thesis-box p{color:var(--text-dim);font-size:.96rem;}
+  .facts-panel{display:flex;flex-direction:column;gap:0;border:1px solid var(--card-line);border-radius:14px;overflow:hidden;}
+  .fact-row{display:flex;justify-content:space-between;gap:12px;padding:18px 22px;border-bottom:1px solid var(--card-line);font-size:.92rem;}
+  .fact-row:last-child{border-bottom:none;}
+  .fact-row span:first-child{color:var(--text-faint);font-family:var(--mono);font-size:.8rem;}
+  .fact-row span:last-child{color:var(--text);text-align:right;}
+
+  /* ---------- education ---------- */
+  .edu-list{display:flex;flex-direction:column;gap:0;}
+  .edu-item{
+    display:grid;grid-template-columns:150px 1fr;gap:24px;padding:26px 0;
+    border-bottom:1px solid var(--card-line);
+  }
+  .edu-item:first-child{padding-top:0;}
+  .edu-period{font-family:var(--mono);color:var(--pink-2);font-size:.84rem;}
+  .edu-inst{font-family:var(--disp);font-weight:600;font-size:1.15rem;margin-bottom:6px;}
+  .edu-deg{color:var(--text-dim);font-size:.95rem;}
+  .edu-note{color:var(--text-faint);font-size:.88rem;margin-top:8px;}
+  @media (max-width:600px){.edu-item{grid-template-columns:1fr;gap:6px;}}
+
+  /* ---------- skills ---------- */
+  .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  @media (max-width:700px){.skills-grid{grid-template-columns:1fr;}}
+  .skill-card{
+    background:var(--card);border:1px solid var(--card-line);border-radius:var(--radius);
+    padding:26px 26px 22px;transition:border-color .2s ease, transform .2s ease;
+  }
+  .skill-card:hover{border-color:var(--pink);transform:translateY(-3px);}
+  .skill-card .cat{
+    font-family:var(--mono);font-size:.78rem;color:var(--pink-2);margin-bottom:14px;display:block;
+  }
+  .skill-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .skill-tags span{
+    font-size:.85rem;padding:7px 13px;border-radius:8px;background:var(--bg-alt);
+    border:1px solid var(--card-line);color:var(--text-dim);
+  }
+
+  /* ---------- projects ---------- */
+  .subsection-title{
+    font-family:var(--disp);font-weight:600;font-size:1.2rem;margin:0 0 26px;
+    display:flex;align-items:center;gap:12px;color:var(--text);
+  }
+  .subsection-title::before{content:"";width:20px;height:2px;background:var(--pink);}
+  .project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-bottom:70px;}
+  .project-card{
+    background:var(--card);border:1px solid var(--card-line);border-radius:var(--radius);
+    padding:26px;display:flex;flex-direction:column;transition:transform .2s ease, border-color .2s ease;
+  }
+  .project-card:hover{transform:translateY(-4px);border-color:rgba(255,47,126,.5);}
+  .project-card h3{font-family:var(--disp);font-size:1.08rem;font-weight:600;margin-bottom:10px;}
+  .project-card p{color:var(--text-dim);font-size:.92rem;margin-bottom:16px;flex-grow:1;}
+  .project-tech{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;}
+  .project-tech span{
+    font-family:var(--mono);font-size:.72rem;color:var(--pink-soft);background:var(--pink-dim);
+    padding:4px 9px;border-radius:6px;
+  }
+  .project-features{margin-bottom:20px;}
+  .project-features li{
+    color:var(--text-dim);font-size:.86rem;padding-left:16px;position:relative;margin-bottom:6px;
+  }
+  .project-features li::before{content:"→";position:absolute;left:0;color:var(--pink);}
+  .project-links{display:flex;gap:10px;margin-top:auto;}
+  .link-btn{
+    display:inline-flex;align-items:center;gap:7px;font-size:.84rem;font-weight:600;
+    padding:9px 15px;border-radius:8px;border:1px solid var(--card-line);color:var(--text-dim);
+    transition:all .2s ease;
+  }
+  .link-btn:hover{border-color:var(--pink);color:var(--pink-soft);}
+  .link-btn.primary{background:var(--pink);border-color:var(--pink);color:#0a0a0a;}
+  .link-btn.primary:hover{background:var(--pink-2);color:#0a0a0a;}
+
+  .hw-card{
+    background:var(--card);border:1px solid var(--card-line);border-radius:var(--radius);
+    overflow:hidden;transition:transform .2s ease, border-color .2s ease;
+  }
+  .hw-card:hover{transform:translateY(-4px);border-color:rgba(255,47,126,.5);}
+  .hw-media{aspect-ratio:4/3;overflow:hidden;background:var(--bg-alt);}
+  .hw-media img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+  .hw-card:hover .hw-media img{transform:scale(1.04);}
+  .hw-body{padding:22px;}
+  .hw-tag{font-family:var(--mono);font-size:.72rem;color:var(--pink-2);display:block;margin-bottom:8px;}
+  .hw-body h3{font-family:var(--disp);font-size:1.02rem;font-weight:600;margin-bottom:8px;}
+  .hw-body p{color:var(--text-dim);font-size:.88rem;}
+
+  /* ---------- certifications ---------- */
+  .cert-card{
+    background:var(--card);border:1px solid var(--card-line);border-radius:var(--radius);
+    padding:36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  }
+  .cert-card h3{font-family:var(--disp);font-size:1.15rem;margin-bottom:8px;}
+  .cert-card p{color:var(--text-dim);font-size:.92rem;}
+
+  /* ---------- contact ---------- */
+  .contact-panel{
+    background:var(--card);border:1px solid var(--card-line);border-radius:20px;
+    padding:56px;text-align:center;
+  }
+  .contact-panel h2{font-family:var(--disp);font-size:clamp(1.6rem,3.2vw,2.3rem);margin-bottom:16px;}
+  .contact-panel p{color:var(--text-dim);max-width:48ch;margin:0 auto 34px;}
+  .contact-methods{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;}
+
+  footer{border-top:1px solid var(--card-line);padding:34px 0;}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+  .footer-inner p{color:var(--text-faint);font-size:.85rem;}
+  .footer-socials{display:flex;gap:16px;}
+  .footer-socials a{color:var(--text-faint);transition:color .2s ease;}
+  .footer-socials a:hover{color:var(--pink-soft);}
+
+  .back-to-top{
+    position:fixed;bottom:28px;right:28px;width:46px;height:46px;border-radius:50%;
+    background:var(--pink);color:#0a0a0a;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 25px -8px rgba(255,47,126,.6);opacity:0;pointer-events:none;
+    transform:translateY(10px);transition:all .3s ease;z-index:900;
+  }
+  .back-to-top.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+  .back-to-top:hover{background:var(--pink-2);}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#home" class="logo"><span class="dot">&lt;</span>Ramisha<span class="dot">/&gt;</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact" class="nav-cta" style="border:none;padding:9px 16px;">Contact</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#contact">Contact</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow-tag"><span class="blip"></span>Open to software engineering roles</span>
+        <h1 class="name">Ramisha Hossain<br><span class="accent">Samantha</span></h1>
+        <p class="hero-title">// Software Engineer &nbsp;·&nbsp; CSE Student, BRAC University</p>
+        <p class="hero-intro">Computer Science & Engineering student who builds neural networks by day and still remembers to blend her eyeshadow — currently training a deep learning model to catch heart disease early from MRI scans.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary"><i class="fa-solid fa-code"></i> View Projects</a>
+          <a href="#contact" class="btn btn-ghost"><i class="fa-regular fa-paper-plane"></i> Contact</a>
+        </div>
+        <div class="hero-socials">
+          <a href="https://github.com/samanthahere" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/ramisha-hossain-samantha-01945b386" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="mailto:ramishasamanthaa@gmail.com" class="social-btn" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="portrait-frame">
+          <img src="assets/profile.jpg" alt="Portrait of Ramisha Hossain Samantha">
+        </div>
+        <div class="terminal-card">
+          <div class="terminal-bar"><span></span><span></span><span></span></div>
+          <div class="terminal-body">
+            <div class="line"><span class="k">model</span>.fit(<span class="s">mri_scans</span>)</div>
+            <div class="line"><span class="k">status</span>: <span class="s">"training…"</span></div>
+            <div class="line"><span class="k">lipstick</span>: <span class="s">"red, matte"</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section-pad" id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">01 — About</span>
+        <h2 class="section-title">A little about me</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>I'm a <strong>Computer Science & Engineering student at BRAC University</strong> with big dreams and even bigger ambitions — on a mission to become the best software engineer out there, no pressure.</p>
+          <p>I'm a full-time coder, AI enthusiast and cybersecurity geek, currently spending most of my time on my thesis. But here's the plot twist: <strong>I can also contour like a pro</strong>. I train models and blend eyeshadow seamlessly, proving that tech girls can absolutely do it all.</p>
+          <p>Building the future one line of code — and one bold lip — at a time.</p>
+          <div class="thesis-box">
+            <span class="label">// current thesis</span>
+            <p>A hybrid deep learning approach for detecting heart disease from MRI scans, combining multiple neural network architectures to improve early diagnosis.</p>
+          </div>
+        </div>
+        <div class="facts-panel reveal">
+          <div class="fact-row"><span>location</span><span>Bangladesh</span></div>
+          <div class="fact-row"><span>university</span><span>BRAC University</span></div>
+          <div class="fact-row"><span>degree</span><span>B.Sc. in CSE</span></div>
+          <div class="fact-row"><span>focus</span><span>AI / ML, Cybersecurity</span></div>
+          <div class="fact-row"><span>email</span><span>ramishasamanthaa@gmail.com</span></div>
+          <div class="fact-row"><span>github</span><span>@samanthahere</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section-pad" id="projects" style="background:var(--bg-alt);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">02 — Projects</span>
+        <h2 class="section-title">Things I've built</h2>
+        <p class="section-sub">A mix of web projects and hands-on hardware builds from coursework and personal practice.</p>
+      </div>
+
+      <h3 class="subsection-title reveal">Web Projects</h3>
+      <div class="project-grid">
+
+        <div class="project-card reveal">
+          <h3>Cash Catcher</h3>
+          <p>An arcade-style browser game where falling cash icons have to be caught before they hit the ground, with a live score counter as the pace picks up.</p>
+          <div class="project-tech"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <ul class="project-features">
+            <li>Real-time score tracking</li>
+            <li>Increasing difficulty over time</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/samanthahere/-CashCatcher" target="_blank" rel="noopener" class="link-btn"><i class="fa-brands fa-github"></i> Code</a>
+            <a href="https://samanthahere.github.io/-CashCatcher/" target="_blank" rel="noopener" class="link-btn primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <h3>Tic-Tac-Toe</h3>
+          <p>A classic two-player tic-tac-toe game built for the browser, with instant win detection and a one-click restart.</p>
+          <div class="project-tech"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <ul class="project-features">
+            <li>Win / draw detection logic</li>
+            <li>Clean, responsive game board</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/samanthahere/tic-tac-toe" target="_blank" rel="noopener" class="link-btn"><i class="fa-brands fa-github"></i> Code</a>
+            <a href="https://samanthahere.github.io/tic-tac-toe/" target="_blank" rel="noopener" class="link-btn primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <h3>Calculator</h3>
+          <p>A straightforward calculator web app covering the standard arithmetic operations with a clean, responsive button layout.</p>
+          <div class="project-tech"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <ul class="project-features">
+            <li>Standard arithmetic operations</li>
+            <li>Responsive layout for mobile</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/samanthahere/calculator" target="_blank" rel="noopener" class="link-btn"><i class="fa-brands fa-github"></i> Code</a>
+            <a href="https://samanthahere.github.io/calculator/" target="_blank" rel="noopener" class="link-btn primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <h3>Egg Timer</h3>
+          <p>A simple countdown timer app for the kitchen, with a clear visual countdown and an alert once time's up.</p>
+          <div class="project-tech"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <ul class="project-features">
+            <li>Countdown timer with alert</li>
+            <li>Minimal, distraction-free UI</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/samanthahere/EGG-TIMER" target="_blank" rel="noopener" class="link-btn"><i class="fa-brands fa-github"></i> Code</a>
+            <a href="https://samanthahere.github.io/EGG-TIMER/" target="_blank" rel="noopener" class="link-btn primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <h3>Valentine's Day Proposal</h3>
+          <p>A playful, interactive Valentine's Day proposal page built purely for fun, with a bit of animated mischief built into the "no" button.</p>
+          <div class="project-tech"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <ul class="project-features">
+            <li>Interactive, animated UI</li>
+            <li>Built as a lighthearted side project</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/samanthahere/VALENTINES-DAY-PROPOSAL1" target="_blank" rel="noopener" class="link-btn"><i class="fa-brands fa-github"></i> Code</a>
+            <a href="https://samanthahere.github.io/VALENTINES-DAY-PROPOSAL1/" target="_blank" rel="noopener" class="link-btn primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+          </div>
+        </div>
+
+      </div>
+
+      <h3 class="subsection-title reveal">Hardware Projects</h3>
+      <p class="section-sub reveal" style="margin-top:-14px;margin-bottom:26px;">Turning circuits and sensors into real-world magic.</p>
+      <div class="project-grid">
+
+        <div class="hw-card reveal">
+          <div class="hw-media"><img src="assets/drone.jpg" alt="Autonomous drone with exposed flight-controller wiring"></div>
+          <div class="hw-body">
+            <span class="hw-tag">CSE461 — Introduction to Robotics</span>
+            <h3>Autonomous Drone</h3>
+            <p>An autonomous drone blending precise flight control and intelligent sensing, built to explore the world from above with stability and speed.</p>
+          </div>
+        </div>
+
+        <div class="hw-card reveal">
+          <div class="hw-media"><img src="assets/poultry-farm.jpg" alt="Breadboard circuit with LCD display for the poultry farm automation project"></div>
+          <div class="hw-body">
+            <span class="hw-tag">Poultry Farm Automation</span>
+            <h3>Smart Poultry Farm</h3>
+            <p>A smart poultry farm system that monitors temperature, humidity and feeding automatically, designed to simplify farming with embedded tech.</p>
+          </div>
+        </div>
+
+        <div class="hw-card reveal">
+          <div class="hw-media"><img src="assets/digital-electronics.jpg" alt="Digital electronics breadboard circuit connected to an oscilloscope"></div>
+          <div class="hw-body">
+            <span class="hw-tag">CSE350 — Digital Electronics and Pulse Techniques</span>
+            <h3>Digital Electronics Project</h3>
+            <p>A hands-on circuit project exploring logic gates and pulse systems, showing how electronics become the heartbeat of modern machines.</p>
+          </div>
+        </div>
+
+        <div class="hw-card reveal">
+          <div class="hw-media"><img src="assets/digital-logic-design.jpg" alt="Digital logic design breadboard circuit built from a hand-drawn schematic"></div>
+          <div class="hw-body">
+            <span class="hw-tag">CSE260 — Digital Logic Design</span>
+            <h3>Digital Logic Design Project</h3>
+            <p>Digital circuits built from the ground up, where logic gates meet creativity to form the foundation of every computing system.</p>
+          </div>
+        </div>
+
+        <div class="hw-card reveal">
+          <div class="hw-media"><img src="assets/smart-bin.jpg" alt="Prototype smart bin with an ultrasonic sensor mounted on the front"></div>
+          <div class="hw-body">
+            <span class="hw-tag">Personal Project</span>
+            <h3>Touchless Smart Bin with Wet/Dry Segregation</h3>
+            <p>A touchless bin prototype that uses sensors to detect and automatically sort waste into wet and dry compartments, without needing any contact.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section-pad" id="skills">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">03 — Skills</span>
+        <h2 class="section-title">What I work with</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <span class="cat">// programming & data</span>
+          <div class="skill-tags">
+            <span>Python</span><span>Data Structures & Algorithms</span><span>SQL & Database Management</span><span>Git</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <span class="cat">// ai & machine learning</span>
+          <div class="skill-tags">
+            <span>Deep Learning & Neural Networks</span><span>TensorFlow</span><span>Keras</span><span>PyTorch</span><span>Computer Vision</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <span class="cat">// security</span>
+          <div class="skill-tags">
+            <span>Cybersecurity</span><span>Ethical Hacking</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <span class="cat">// software development</span>
+          <div class="skill-tags">
+            <span>Software Development</span><span>Version Control (Git)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section-pad" id="education" style="background:var(--bg-alt);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">04 — Education</span>
+        <h2 class="section-title">Academic background</h2>
+      </div>
+      <div class="edu-list">
+        <div class="edu-item reveal">
+          <span class="edu-period">Current</span>
+          <div>
+            <div class="edu-inst">BRAC University</div>
+            <div class="edu-deg">B.Sc. in Computer Science & Engineering</div>
+            <div class="edu-note">Thesis: hybrid deep learning model for heart disease detection using MRI scans.</div>
+          </div>
+        </div>
+        <div class="edu-item reveal">
+          <span class="edu-period">Earlier</span>
+          <div>
+            <div class="edu-inst">Viqarunnisa Noon School and College</div>
+          </div>
+        </div>
+        <div class="edu-item reveal">
+          <span class="edu-period">Earlier</span>
+          <div>
+            <div class="edu-inst">National Ideal School</div>
+          </div>
+        </div>
+        <div class="edu-item reveal">
+          <span class="edu-period">Earlier</span>
+          <div>
+            <div class="edu-inst">Adventist International Mission School</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section class="section-pad" id="certifications">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">05 — Certifications</span>
+        <h2 class="section-title">Certifications</h2>
+      </div>
+      <div class="cert-card reveal">
+        <div>
+          <h3>Certificate Corner</h3>
+          <p>All certifications are collected on a dedicated page.</p>
+        </div>
+        <a href="https://samanthahere.github.io/certificate-corner/" target="_blank" rel="noopener" class="btn btn-primary"><i class="fa-solid fa-award"></i> View Certifications</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section-pad" id="contact" style="background:var(--bg-alt);">
+    <div class="wrap">
+      <div class="contact-panel reveal">
+        <h2>Let's work together</h2>
+        <p>Open to software engineering opportunities, collaborations, and interesting problems to solve — feel free to reach out.</p>
+        <div class="contact-methods">
+          <a href="mailto:ramishasamanthaa@gmail.com" class="btn btn-primary"><i class="fa-regular fa-envelope"></i> ramishasamanthaa@gmail.com</a>
+          <a href="https://github.com/samanthahere" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-github"></i> GitHub</a>
+          <a href="https://www.linkedin.com/in/ramisha-hossain-samantha-01945b386" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <p>© <span id="year"></span> Ramisha Hossain Samantha. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://github.com/samanthahere" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/ramisha-hossain-samantha-01945b386" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="mailto:ramishasamanthaa@gmail.com" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script>
+  // year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+  // active nav indicator on scroll
+  const sections = document.querySelectorAll('main section[id]');
+  const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+  const mobileAnchors = document.querySelectorAll('.mobile-menu a[href^="#"]');
+
+  function setActive(id){
+    navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    mobileAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+  }
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){ setActive(entry.target.id); }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+  sections.forEach(sec => navObserver.observe(sec));
+
+  // scroll reveal
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // header border on scroll + back-to-top visibility
+  const header = document.querySelector('header');
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    header.style.borderBottomColor = window.scrollY > 12 ? 'rgba(255,47,126,.25)' : 'rgba(255,255,255,.06)';
+    backToTop.classList.toggle('show', window.scrollY > 500);
+  });
+  backToTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+</script>
+</body>
+</html>
