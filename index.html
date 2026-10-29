@@ -544,6 +544,18 @@
   }
   @media (min-width:981px){.mobile-menu{display:none;}}
   @media (max-width:640px){nav{padding:0 20px;gap:12px;}}
+
+  /* ---------- contact form feedback banner ---------- */
+  .form-status{display:none;margin-top:18px;padding:14px 16px 14px 44px;border-radius:10px;font-size:.93rem;line-height:1.5;border:1px solid transparent;position:relative;}
+  .form-status.show{display:block;}
+  .form-status::before{position:absolute;left:14px;top:13px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;color:#0a0a0a;}
+  .form-status.ok{background:rgba(52,211,153,.12);border-color:rgba(52,211,153,.45);color:#34d399;}
+  .form-status.ok::before{content:"\2713";background:#34d399;}
+  .form-status.err{background:rgba(255,122,138,.12);border-color:rgba(255,122,138,.45);color:#ff7a8a;}
+  .form-status.err::before{content:"!";background:#ff7a8a;}
+  .form-status .status-link{text-decoration:underline;font-weight:600;color:inherit;}
+  :root[data-theme="light"] .form-status.ok{color:#0b7a53;background:rgba(16,185,129,.1);}
+  :root[data-theme="light"] .form-status.err{color:#b4233a;background:rgba(220,38,38,.08);}
 </style>
 </head>
 <body>
@@ -1006,8 +1018,8 @@
           <div class="hp-field" aria-hidden="true"><label>Leave this empty <input type="text" id="cfHp" name="_honey" tabindex="-1" autocomplete="off"></label></div>
           <div class="form-actions">
             <button type="submit" class="btn btn-primary" id="cfSubmit"><span id="cfBtnText">Send Message</span> <i class="fa-regular fa-paper-plane"></i></button>
-            <span class="form-status" id="cfStatus" role="status" aria-live="polite"></span>
           </div>
+          <div class="form-status" id="cfStatus" role="status" aria-live="polite"></div>
         </form>
       </div>
     </div>
@@ -1066,10 +1078,18 @@
     const btn = document.getElementById('cfSubmit');
     const btnText = document.getElementById('cfBtnText');
 
-    function setStatus(msg, type){
+    function setStatus(msg, type, mailLink){
       statusEl.textContent = msg;
+      if(mailLink){
+        const a = document.createElement('a');
+        a.href = mailLink; a.className = 'status-link'; a.textContent = 'Send it from your email app instead';
+        statusEl.appendChild(document.createTextNode(' '));
+        statusEl.appendChild(a);
+        statusEl.appendChild(document.createTextNode(' or write to ' + CONTACT_EMAIL + '.'));
+      }
       statusEl.className = 'form-status show ' + type;
     }
+    const SENT = 'Message sent! Thank you for reaching out. I will get back to you soon.';
 
     form.addEventListener('submit', async function(e){
       e.preventDefault();
@@ -1081,12 +1101,19 @@
 
       if(!name || !email || !subject || !message){ setStatus('Please fill in all the fields.', 'err'); return; }
       if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ setStatus('Please enter a valid email address.', 'err'); return; }
-      if(form.elements['_honey'].value){ setStatus('Thanks! Your message has been sent.', 'ok'); form.reset(); return; }
+      if(form.elements['_honey'].value){ setStatus(SENT, 'ok'); form.reset(); return; }
+
+      const mailLink = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+      const FAIL = 'Sorry, your message could not be sent right now.';
 
       btn.disabled = true; btnText.textContent = 'Sending…';
+      const ctrl = new AbortController();
+      const timer = setTimeout(function(){ ctrl.abort(); }, 20000);
       try{
         const res = await fetch('https://formsubmit.co/ajax/' + CONTACT_EMAIL, {
           method: 'POST',
+          signal: ctrl.signal,
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({
             name: name,
@@ -1094,19 +1121,21 @@
             message: message,
             _subject: 'Portfolio message: ' + subject,
             _template: 'table',
-            _captcha: 'false'
+            _captcha: 'false',
+            _autoresponse: 'Hi ' + name + ', thank you for contacting me. I have received your message and will get back to you soon. - Ramisha'
           })
         });
         const data = await res.json();
         if(res.ok && (data.success === true || data.success === 'true')){
-          setStatus('Thanks! Your message has been sent.', 'ok');
+          setStatus(SENT, 'ok');
           form.reset();
         } else {
-          setStatus('Something went wrong. Please email me directly at ' + CONTACT_EMAIL + '.', 'err');
+          setStatus(FAIL, 'err', mailLink);
         }
       } catch(err){
-        setStatus('Could not send right now. Please email me directly at ' + CONTACT_EMAIL + '.', 'err');
+        setStatus(FAIL, 'err', mailLink);
       } finally {
+        clearTimeout(timer);
         btn.disabled = false; btnText.textContent = 'Send Message';
       }
     });
