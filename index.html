@@ -327,13 +327,6 @@
   .cert-card p{color:var(--text-dim);font-size:.92rem;}
 
   /* ---------- contact ---------- */
-  .contact-panel{
-    background:var(--card);border:1px solid var(--card-line);border-radius:20px;
-    padding:56px;text-align:center;
-  }
-  .contact-panel h2{font-family:var(--disp);font-size:clamp(1.6rem,3.2vw,2.3rem);margin-bottom:16px;}
-  .contact-panel p{color:var(--text-dim);max-width:48ch;margin:0 auto 34px;}
-  .contact-methods{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;}
 
   footer{border-top:1px solid var(--card-line);padding:34px 0;}
   .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
@@ -354,6 +347,61 @@
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease, transform .6s ease;}
   .reveal.visible{opacity:1;transform:translateY(0);}
 
+
+
+  /* ---------- contact ---------- */
+  .contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:start;}
+  .contact-info h2{font-family:var(--disp);font-size:clamp(1.5rem,3vw,2rem);margin-bottom:14px;}
+  .contact-info > p{color:var(--text-dim);margin-bottom:28px;max-width:44ch;}
+  .contact-card{
+    display:flex;align-items:center;gap:16px;padding:16px 20px;margin-bottom:14px;
+    background:var(--card);border:1px solid var(--card-line);border-radius:14px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .contact-card:hover{border-color:var(--pink);transform:translateY(-2px);}
+  .cc-icon{
+    width:44px;height:44px;flex-shrink:0;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    background:var(--pink-dim);color:var(--pink);font-size:1.05rem;
+  }
+  .cc-text{min-width:0;flex:1;}
+  .cc-label{display:block;font-family:var(--mono);font-size:.7rem;color:var(--text-faint);letter-spacing:.06em;text-transform:uppercase;}
+  .cc-value{display:block;font-weight:600;font-size:.95rem;overflow-wrap:anywhere;}
+  .cc-action{font-size:.82rem;font-weight:600;color:var(--pink-soft);white-space:nowrap;}
+  .contact-form{
+    background:var(--card);border:1px solid var(--card-line);border-radius:20px;padding:34px;
+  }
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .form-group{margin-bottom:18px;}
+  .form-group label{
+    display:block;margin-bottom:8px;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--text-dim);
+  }
+  .form-group label span{color:var(--pink);}
+  .form-group input,.form-group textarea{
+    width:100%;padding:14px 16px;border-radius:10px;border:1px solid var(--card-line);
+    background:var(--bg-alt);color:var(--text);font-family:var(--sans);font-size:.95rem;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .form-group textarea{min-height:150px;resize:vertical;}
+  .form-group input::placeholder,.form-group textarea::placeholder{color:var(--text-faint);}
+  .form-group input:focus,.form-group textarea:focus{
+    outline:none;border-color:var(--pink);box-shadow:0 0 0 3px var(--pink-dim);
+  }
+  .hp-field{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;overflow:hidden;}
+  .form-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .form-actions .btn{cursor:pointer;font-family:var(--sans);}
+  .form-actions .btn[disabled]{opacity:.6;cursor:not-allowed;transform:none;}
+  .form-status{font-size:.9rem;display:none;}
+  .form-status.show{display:block;}
+  .form-status.ok{color:#4ad991;}
+  .form-status.err{color:#ff7a8a;}
+  @media (max-width:900px){.contact-grid{grid-template-columns:1fr;gap:36px;}}
+  @media (max-width:560px){
+    .form-row{grid-template-columns:1fr;gap:0;}
+    .contact-form{padding:24px 20px;}
+    .cc-action{display:none;}
+  }
+
   /* ---------- mobile responsiveness ---------- */
   @media (max-width:900px){
     .about-grid{grid-template-columns:1fr;gap:36px;}
@@ -366,7 +414,6 @@
   @media (max-width:760px){
     .section-pad{padding:72px 0;}
     .section-head{margin-bottom:36px;}
-    .contact-panel{padding:36px 24px;}
     .cert-card{padding:28px;flex-direction:column;text-align:center;}
     .fact-row{font-size:.86rem;padding:14px 16px;flex-wrap:wrap;row-gap:4px;}
     .fact-row span:last-child{text-align:left;word-break:break-word;}
@@ -559,6 +606,21 @@
           <div class="project-links">
             <a href="https://github.com/samanthahere/doctor-appointment-booking" target="_blank" rel="noopener" class="link-btn"><i class="fa-brands fa-github"></i> Code</a>
             <a href="https://doctor-booking-frontend-q0tc.onrender.com/" target="_blank" rel="noopener" class="link-btn primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal" style="border-top:3px solid var(--pink);">
+          <h3>Laravel E-Commerce Shop</h3>
+          <p>An online store for a local shop, where the owner is emailed automatically every time a customer places an order.</p>
+          <div class="project-tech"><span>Laravel</span><span>PHP</span><span>PostgreSQL</span><span>Docker</span><span>Gmail SMTP</span></div>
+          <ul class="project-features">
+            <li>Online ordering for a local shop</li>
+            <li>Instant order-notification email to the shop owner</li>
+            <li>Dockerized and deployed on Render with Neon PostgreSQL</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/samanthahere/laravel-ecommerce-shop" target="_blank" rel="noopener" class="link-btn"><i class="fa-brands fa-github"></i> Code</a>
+            <a href="https://laravel-ecommerce-shop.onrender.com" target="_blank" rel="noopener" class="link-btn primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
           </div>
         </div>
       </div>
@@ -779,14 +841,62 @@
   <!-- CONTACT -->
   <section class="section-pad" id="contact" style="background:var(--bg-alt);">
     <div class="wrap">
-      <div class="contact-panel reveal">
-        <h2>Let's work together</h2>
-        <p>Open to software engineering opportunities and interesting problems to solve — feel free to reach out.</p>
-        <div class="contact-methods">
-          <a href="mailto:ramishasamanthaa@gmail.com" class="btn btn-primary"><i class="fa-regular fa-envelope"></i> ramishasamanthaa@gmail.com</a>
-          <a href="https://github.com/samanthahere" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-github"></i> GitHub</a>
-          <a href="https://www.linkedin.com/in/ramisha-hossain-samantha-01945b386" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+      <div class="section-head reveal">
+        <span class="section-tag">06 — Contact</span>
+        <h2 class="section-title">Get in touch</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h2>Let's connect</h2>
+          <p>Have an opportunity or a project to discuss? Send me a message and I'll get back to you.</p>
+
+          <a class="contact-card" href="mailto:ramishasamanthaa@gmail.com">
+            <span class="cc-icon"><i class="fa-regular fa-envelope"></i></span>
+            <span class="cc-text"><span class="cc-label">Email</span><span class="cc-value">ramishasamanthaa@gmail.com</span></span>
+            <span class="cc-action">Write me →</span>
+          </a>
+          <a class="contact-card" href="https://www.linkedin.com/in/ramisha-hossain-samantha-01945b386" target="_blank" rel="noopener">
+            <span class="cc-icon"><i class="fa-brands fa-linkedin-in"></i></span>
+            <span class="cc-text"><span class="cc-label">LinkedIn</span><span class="cc-value">ramisha-hossain-samantha</span></span>
+            <span class="cc-action">Connect →</span>
+          </a>
+          <a class="contact-card" href="https://wa.me/8801672714268" target="_blank" rel="noopener">
+            <span class="cc-icon"><i class="fa-brands fa-whatsapp"></i></span>
+            <span class="cc-text"><span class="cc-label">WhatsApp</span><span class="cc-value">+880 1672 714268</span></span>
+            <span class="cc-action">Chat →</span>
+          </a>
+          <a class="contact-card" href="https://github.com/samanthahere" target="_blank" rel="noopener">
+            <span class="cc-icon"><i class="fa-brands fa-github"></i></span>
+            <span class="cc-text"><span class="cc-label">GitHub</span><span class="cc-value">samanthahere</span></span>
+            <span class="cc-action">Follow →</span>
+          </a>
         </div>
+
+        <form class="contact-form reveal" id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cfName">Name <span>*</span></label>
+              <input type="text" id="cfName" name="name" placeholder="Your name" autocomplete="name" required>
+            </div>
+            <div class="form-group">
+              <label for="cfEmail">Email <span>*</span></label>
+              <input type="email" id="cfEmail" name="email" placeholder="your.email@example.com" autocomplete="email" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cfSubject">Subject <span>*</span></label>
+            <input type="text" id="cfSubject" name="subject" placeholder="What is this regarding?" required>
+          </div>
+          <div class="form-group">
+            <label for="cfMessage">Message <span>*</span></label>
+            <textarea id="cfMessage" name="message" placeholder="Tell me about your project, idea, or inquiry..." required></textarea>
+          </div>
+          <div class="hp-field" aria-hidden="true"><label>Leave this empty <input type="text" id="cfHp" name="botcheck" tabindex="-1" autocomplete="off"></label></div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="cfSubmit"><span id="cfBtnText">Send Message</span> <i class="fa-regular fa-paper-plane"></i></button>
+            <span class="form-status" id="cfStatus" role="status" aria-live="polite"></span>
+          </div>
+        </form>
       </div>
     </div>
   </section>
@@ -837,6 +947,71 @@
     applyTheme(next);
     localStorage.setItem('theme', next);
   });
+
+  // contact form
+  // Setup: get a free access key at https://web3forms.com (enter ramishasamanthaa@gmail.com), then paste it below.
+  // While the key is still the placeholder, the form opens the visitor's email app with the message filled in.
+  const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+  const CONTACT_EMAIL = 'ramishasamanthaa@gmail.com';
+  (function(){
+    const form = document.getElementById('contactForm');
+    if(!form) return;
+    const statusEl = document.getElementById('cfStatus');
+    const btn = document.getElementById('cfSubmit');
+    const btnText = document.getElementById('cfBtnText');
+
+    function setStatus(msg, type){
+      statusEl.textContent = msg;
+      statusEl.className = 'form-status show ' + type;
+    }
+
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      statusEl.className = 'form-status';
+      const name = form.elements['name'].value.trim();
+      const email = form.elements['email'].value.trim();
+      const subject = form.elements['subject'].value.trim();
+      const message = form.elements['message'].value.trim();
+
+      if(!name || !email || !subject || !message){ setStatus('Please fill in all the fields.', 'err'); return; }
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ setStatus('Please enter a valid email address.', 'err'); return; }
+      if(form.elements['botcheck'].value){ setStatus('Thanks! Your message has been sent.', 'ok'); form.reset(); return; }
+
+      // fallback until an access key is added: open the visitor's email app
+      if(WEB3FORMS_KEY === 'YOUR_WEB3FORMS_ACCESS_KEY'){
+        const body = 'Name: ' + name + '\nEmail: ' + email + '\n\n' + message;
+        window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        setStatus('Opening your email app…', 'ok');
+        return;
+      }
+
+      btn.disabled = true; btnText.textContent = 'Sending…';
+      try{
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            name: name, email: email,
+            subject: 'Portfolio message: ' + subject,
+            message: message,
+            from_name: 'Portfolio contact form'
+          })
+        });
+        const data = await res.json();
+        if(res.ok && data.success){
+          setStatus('Thanks! Your message has been sent.', 'ok');
+          form.reset();
+        } else {
+          setStatus('Something went wrong. Please email me directly at ' + CONTACT_EMAIL + '.', 'err');
+        }
+      } catch(err){
+        setStatus('Could not send right now. Please email me directly at ' + CONTACT_EMAIL + '.', 'err');
+      } finally {
+        btn.disabled = false; btnText.textContent = 'Send Message';
+      }
+    });
+  })();
 
   // year
   document.getElementById('year').textContent = new Date().getFullYear();
