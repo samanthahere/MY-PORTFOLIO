@@ -556,6 +556,8 @@
   .form-status .status-link{text-decoration:underline;font-weight:600;color:inherit;}
   :root[data-theme="light"] .form-status.ok{color:#0b7a53;background:rgba(16,185,129,.1);}
   :root[data-theme="light"] .form-status.err{color:#b4233a;background:rgba(220,38,38,.08);}
+
+  .hosting-note{color:var(--text-faint);font-size:.88rem;margin:-10px 0 22px;max-width:70ch;}
 </style>
 </head>
 <body>
@@ -699,6 +701,7 @@
       </div>
 
       <h3 class="subsection-title reveal">Full-Stack Projects</h3>
+      <p class="hosting-note reveal">Live demos run on free hosting, so a demo that has been idle can take up to a minute to wake up on the first visit. After that it loads normally.</p>
       <div class="project-grid">
         <div class="project-card reveal" style="border-top:3px solid var(--pink);">
           <h3>BloodConnect</h3>
@@ -735,11 +738,12 @@
 
         <div class="project-card reveal" style="border-top:3px solid var(--pink);">
           <h3>Laravel E-Commerce Shop</h3>
-          <p>An online store for a local shop, where the owner is emailed automatically every time a customer places an order.</p>
+          <p>An online clothing and accessories store ("sundown studio") with Cash on Delivery ordering across Bangladesh. The shop owner is emailed automatically on every order.</p>
           <div class="project-tech"><span>Laravel</span><span>PHP</span><span>PostgreSQL</span><span>Docker</span><span>Gmail SMTP</span></div>
           <ul class="project-features">
-            <li>Online ordering for a local shop</li>
-            <li>Instant order-notification email to the shop owner</li>
+            <li>Product catalogue with Accessories, Bags and Clothing categories</li>
+            <li>Product pages with stock count, plus a shopping cart</li>
+            <li>Cash on Delivery checkout with instant order email to the owner</li>
             <li>Dockerized and deployed on Render with Neon PostgreSQL</li>
           </ul>
           <div class="project-links">
@@ -1147,6 +1151,25 @@
         btn.disabled = false; btnText.textContent = 'Send Message';
       }
     });
+  })();
+
+  // wake up the free-tier demo servers when the Projects section is about to be seen,
+  // so "Live Demo" opens quickly instead of waiting for a cold start
+  (function(){
+    const section = document.getElementById('projects');
+    if(!section || !('IntersectionObserver' in window)) return;
+    const demoUrls = [
+      'https://laravel-ecommerce-shop.onrender.com/',
+      'https://bloodconnect-19m9.onrender.com/',
+      'https://doctor-booking-frontend-q0tc.onrender.com/',
+      'https://doctor-booking-api-86d0.onrender.com/'
+    ];
+    const wake = new IntersectionObserver(function(entries){
+      if(!entries[0].isIntersecting) return;
+      wake.disconnect();
+      demoUrls.forEach(function(u){ try{ fetch(u, { mode: 'no-cors', cache: 'no-store' }).catch(function(){}); }catch(e){} });
+    }, { rootMargin: '600px 0px' });
+    wake.observe(section);
   })();
 
   // year
